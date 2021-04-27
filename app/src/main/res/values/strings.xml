@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Draw Emoticon</string>
+    <string name="confirm">confirm</string>
+    <string name="cancel">cancel</string>
+    <string name="directory">/My Emoticon</string>
+    <string name="directory_gif">/My Gif</string>
+
+    <string name="new_canvas">New Canvas</string>
+    <string name="my_emoticons">My Emoticons</string>
+    <string name="you_need_to_permission">You need to accept file access permission to draw</string>
+    
+    <string name="input_name">Input Emoticon Name</string>
+    <string name="canvas_size">Canvas Size (px)</string>
+    <string name="save_as_original_size">Save As Original Size</string>
+    <string name="make_gif">Make Gif (Moving Emoticon)</string>
+    <string name="Draw">draw</string>
+    <string name="please_insert_name">Please Insert Emoticon Name</string>
+
+    <string name="touch_to_canvas">Touch To Canvas</string>
+    <string name="saving_image">Saving Image...</string>
+    <string name="frames">Frames : </string>
+
+    <string name="color_picker">Color Picker</string>
+    <string name="color_confirm">confirm</string>
+    <string name="color_cancel">cancel</string>
+    <string name="save_location">Save Location : </string>
+    <string name="save_failed">Save Failed</string>
+    
+    <string name="admob_app_id" translatable="false">ca-app-pub-7166124303567887~4726073292</string>
+    <string name="admob_interstitial_id" translatable="false">ca-app-pub-7166124303567887/1907310596</string>
+</resources>
