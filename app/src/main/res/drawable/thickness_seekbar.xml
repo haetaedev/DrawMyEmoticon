@@ -4,7 +4,7 @@
     <!--시크바 배경-->
     <item android:id="@android:id/background">
         <shape android:shape="line">
-            <stroke android:width="5dp" android:color="#FDCFCF" />
+            <stroke android:width="5dp" android:color="@color/white_gray" />
         </shape>
     </item>
 
@@ -12,7 +12,7 @@
     <item android:id="@android:id/secondaryProgress">
         <clip>
             <shape android:shape="line">
-                <stroke android:width="20dp" android:color="#000000" />
+                <stroke android:width="18dp" android:color="#000000" />
             </shape>
         </clip>
     </item>
@@ -21,7 +21,7 @@
     <item android:id="@android:id/progress" >
         <clip>
             <shape android:shape="line">
-                <stroke android:width="5dp" android:color="@color/soft_pink" />
+                <stroke android:width="5dp" android:color="@color/soft_orange" />
             </shape>
         </clip>
     </item>

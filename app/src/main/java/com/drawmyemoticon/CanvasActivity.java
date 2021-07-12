@@ -1,10 +1,6 @@
 package com.drawmyemoticon;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -22,17 +19,25 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.azeesoft.lib.colorpicker.ColorPickerDialog;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.drawmyemoticon.Adapters.GifFrameAdapter;
-import com.drawmyemoticon.Adapters.RecentColorAdapter;
 import com.drawmyemoticon.CanvasHandle.AnimatedGIFWriter;
 import com.drawmyemoticon.CanvasHandle.CanvasView;
+import com.github.dhaval2404.colorpicker.ColorPickerDialog;
+import com.github.dhaval2404.colorpicker.listener.ColorListener;
+import com.github.dhaval2404.colorpicker.model.ColorShape;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -42,15 +47,14 @@ import java.util.ArrayList;
 public class CanvasActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
 
-    RecyclerView gifFrameView, recentColorView;
+    RecyclerView gifFrameView;
     CanvasView canvasView;
     SeekBar thicknessSeekBar;
-    TextView thicknessTextView, addFrameTextView, saveTextView;
+    TextView thicknessTextView, addFrameTextView, currentFrameTextView, saveTextView;
     ImageView addGifFrameButton;
     ProgressBar progressBar;
 
     boolean isThicknessSeekBarOpened = false;
-    ArrayList<Integer> recentColors = new ArrayList<>();
 
     ArrayList<Bitmap> imageList = new ArrayList<>();
     String title = "My Emoticon";
@@ -60,10 +64,8 @@ public class CanvasActivity extends AppCompatActivity {
     Bitmap selectedImage = null;
     boolean isSaveSucceed = false;
 
-    // Temporary path to show save location to user
+    // Temporal path to show save location to user
     String savePath;
-
-    ColorPickerDialog colorPickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,15 +117,10 @@ public class CanvasActivity extends AppCompatActivity {
             byte[] arr = getIntent().getByteArrayExtra("image");
             selectedImage = BitmapFactory.decodeByteArray(arr, 0, arr.length);
         }
-
-        recentColors.add(Color.BLACK);
-        recentColors.add(Color.WHITE);
     }
 
     private void setViews() {
         setGifFrameView();
-        setRecentColorView();
-        updateRecentColorView();
 
         canvasView = findViewById(R.id.canvasView);
         if (selectedImage != null) {
@@ -156,22 +153,10 @@ public class CanvasActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.canvasProgressBar);
         saveTextView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
-
-        colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this);
-        colorPickerDialog.setOnColorPickedListener(new ColorPickerDialog.OnColorPickedListener() {
-            @Override
-            public void onColorPicked(int color, String hexVal) {
-                //Your code here
-                canvasView.setColor(Color.parseColor(hexVal));
-                recentColors.add(Color.parseColor(hexVal));
-                updateRecentColorView();
-            }
-        });
-        colorPickerDialog.setTitle(getString(R.string.color_picker));
-        colorPickerDialog.setPositiveActionText(getString(R.string.color_confirm));
-        colorPickerDialog.setNegativeActionText(getString(R.string.color_cancel));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("ResourceType")
     public void buttonEvent(View view) {
         switch (view.getId()) {
             case R.id.addGifFrameButton:
@@ -185,18 +170,29 @@ public class CanvasActivity extends AppCompatActivity {
                 if (isThicknessSeekBarOpened) {
                     thicknessSeekBar.setVisibility(View.GONE);
                     thicknessTextView.setVisibility(View.GONE);
-                    recentColorView.setVisibility(View.VISIBLE);
                     isThicknessSeekBarOpened = false;
                 } else {
                     thicknessSeekBar.setVisibility(View.VISIBLE);
                     thicknessTextView.setVisibility(View.VISIBLE);
-                    recentColorView.setVisibility(View.GONE);
                     isThicknessSeekBarOpened = true;
                 }
                 break;
 
             case R.id.colorChangeButton:
-                colorPickerDialog.show();
+                new ColorPickerDialog
+                        .Builder(this)
+                        .setTitle("Pick Theme")
+                        .setColorShape(ColorShape.SQAURE)
+                        .setDefaultColor(getColor(R.color.black))
+                        .setColorListener(new ColorListener() {
+                            @Override
+                            public void onColorSelected(int color, @NotNull String colorHex) {
+                                // Handle Color Selection
+                                canvasView.setColor(color);
+                            }
+                        })
+                        .show();
+
                 break;
 
             case R.id.eraserButton:
@@ -226,6 +222,9 @@ public class CanvasActivity extends AppCompatActivity {
                 }
                 showSaveInterstitialAd();
                 break;
+
+            case R.id.backToHomeButton:
+                finish();
         }
     }
 
@@ -318,31 +317,20 @@ public class CanvasActivity extends AppCompatActivity {
             }
         });
         gifFrameView.setAdapter(adapter);
-        addFrameTextView.setText(getString(R.string.frames) + imageList.size());
-    }
-
-    private void updateRecentColorView() {
-        RecyclerView.Adapter adapter;
-        // specify an adapter (see also next example)
-        adapter = new RecentColorAdapter(recentColors);
-        ((RecentColorAdapter) adapter).setOnItemClickListener(new RecentColorAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int color) {
-                canvasView.setColor(color);
-            }
-        });
-        recentColorView.setAdapter(adapter);
+        currentFrameTextView.setText(getString(R.string.current_frames) + imageList.size());
     }
 
     private void setGifFrameView() {
         RecyclerView.LayoutManager layoutManager;
         addGifFrameButton = findViewById(R.id.addGifFrameButton);
         addFrameTextView = findViewById(R.id.addFrameTextView);
+        currentFrameTextView = findViewById(R.id.currentFrameTextView);
         gifFrameView = findViewById(R.id.gifListRecyclerView);
         if (!isGif) {
             gifFrameView.setVisibility(View.GONE);
             addGifFrameButton.setVisibility(View.GONE);
             addFrameTextView.setVisibility(View.GONE);
+            currentFrameTextView.setVisibility(View.GONE);
         }
 
         // use this setting to improve performance if you know that changes
@@ -353,19 +341,5 @@ public class CanvasActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         ((LinearLayoutManager) layoutManager).setOrientation(LinearLayoutManager.HORIZONTAL);
         gifFrameView.setLayoutManager(layoutManager);
-    }
-
-    private void setRecentColorView() {
-        RecyclerView.LayoutManager layoutManager;
-        recentColorView = findViewById(R.id.recentColorRecyclerView);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recentColorView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        ((LinearLayoutManager) layoutManager).setOrientation(LinearLayoutManager.HORIZONTAL);
-        recentColorView.setLayoutManager(layoutManager);
     }
 }

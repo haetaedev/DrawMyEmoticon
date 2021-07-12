@@ -1,31 +1,28 @@
 <resources>
-    <string name="app_name">Draw Emoticon</string>
-    <string name="confirm">confirm</string>
-    <string name="cancel">cancel</string>
-    <string name="directory">/My Emoticon</string>
-    <string name="directory_gif">/My Gif</string>
-
-    <string name="new_canvas">New Canvas</string>
-    <string name="my_emoticons">My Emoticons</string>
-    <string name="you_need_to_permission">You need to accept file access permission to draw</string>
-    
-    <string name="input_name">Input Emoticon Name</string>
-    <string name="canvas_size">Canvas Size (px)</string>
-    <string name="save_as_original_size">Save As Original Size</string>
-    <string name="make_gif">Make Gif (Moving Emoticon)</string>
-    <string name="Draw">draw</string>
-    <string name="please_insert_name">Please Insert Emoticon Name</string>
-
-    <string name="touch_to_canvas">Touch To Canvas</string>
-    <string name="saving_image">Saving Image...</string>
-    <string name="frames">Frames : </string>
-
-    <string name="color_picker">Color Picker</string>
-    <string name="color_confirm">confirm</string>
-    <string name="color_cancel">cancel</string>
-    <string name="save_location">Save Location : </string>
-    <string name="save_failed">Save Failed</string>
-    
     <string name="admob_app_id" translatable="false">ca-app-pub-7166124303567887~4726073292</string>
     <string name="admob_interstitial_id" translatable="false">ca-app-pub-7166124303567887/1907310596</string>
+
+    <string name="app_name">이모티콘 만들기</string>
+    <string name="confirm">확인</string>
+    <string name="cancel">취소</string>
+    <string name="directory">/내 이모티콘</string>
+    <string name="directory_gif">/내 움짤</string>
+    <string name="touch_to_canvas">터치해서 복사</string>
+    <string name="new_canvas">새로 그리기</string>
+    <string name="my_emoticons">내가 만든 이모티콘</string>
+    <string name="input_name">이모티콘 이름</string>
+    <string name="canvas_size">이모티콘 크기 (px)</string>
+    <string name="save_as_original_size">원본 크기로 저장</string>
+    <string name="make_gif">움직이는 이모티콘 만들기 (gif)</string>
+    <string name="Draw">만들기</string>
+    <string name="you_need_to_permission">이모티콘을 만드려면 파일 접근 권한 허용이 필요합니다</string>
+    <string name="color_picker">컬러 피커</string>
+    <string name="add_frame">"프레임 추가"</string>
+    <string name="current_frames">"프레임 수 : "</string>
+    <string name="saving_image">이모티콘 저장 중...</string>
+    <string name="please_insert_name">먼저 이름을 정해 주세요</string>
+    <string name="save_location">"갤러리에 저장이 되었습니다"</string>
+    <string name="save_failed">이모티콘 저장 실패</string>
+    <string name="color_confirm">확인</string>
+    <string name="color_cancel">취소</string>
 </resources>

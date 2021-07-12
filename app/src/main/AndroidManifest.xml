@@ -21,9 +21,9 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id"/>
 
-        <activity android:name=".SetupActivity" android:parentActivityName=".SelectActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".CanvasActivity" android:parentActivityName=".SelectActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".SelectActivity" android:screenOrientation="portrait">
+        <activity android:name=".SetupActivity" android:parentActivityName=".MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".CanvasActivity" android:parentActivityName=".MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

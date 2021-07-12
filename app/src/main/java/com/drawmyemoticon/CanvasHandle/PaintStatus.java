@@ -7,7 +7,7 @@ import android.graphics.Path;
 import android.view.View;
 
 public class PaintStatus extends View {
-    private Paint paint = new Paint();
+    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Path path = new Path();
 
     public PaintStatus(Context context, float thickness, int color) {

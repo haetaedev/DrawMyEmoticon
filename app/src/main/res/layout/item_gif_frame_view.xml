@@ -35,6 +35,6 @@
         android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_remove" />
+        app:srcCompat="@drawable/icon_remove_frame" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

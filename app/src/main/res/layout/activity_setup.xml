@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SetupActivity"
-    android:background="@color/soft_yellow">
+    android:background="@color/white">
 
     <EditText
         android:id="@+id/editCanvasTitle"
@@ -39,7 +39,7 @@
         android:id="@+id/createConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/soft_pink"
+        android:backgroundTint="@color/soft_orange"
         android:fontFamily="@font/maplestory_light"
         android:onClick="createNewCanvas"
         android:text="@string/Draw"
@@ -58,6 +58,7 @@
         android:fontFamily="@font/maplestory_light"
         android:text="@string/save_as_original_size"
         android:textColor="@color/black"
+        android:buttonTint="@color/soft_orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editCanvasSize" />
 
@@ -69,6 +70,7 @@
         android:fontFamily="@font/maplestory_light"
         android:text="@string/make_gif"
         android:textColor="@color/black"
+        android:buttonTint="@color/soft_orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveOriginalCheckBox" />
 

@@ -5,24 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CanvasActivity"
-    android:background="@color/soft_yellow">
+    android:background="@color/white">
 
-    <com.drawmyemoticon.CanvasHandle.CanvasView
-        android:id="@+id/canvasView"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="100dp"
+        android:background="@drawable/border"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.drawmyemoticon.CanvasHandle.CanvasView
+            android:id="@+id/canvasView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gifListRecyclerView"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:background="@color/soft_pink"
+        android:background="@color/soft_orange"
         android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -32,7 +40,7 @@
     <LinearLayout
         android:id="@+id/menuLayout"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="42dp"
         android:clickable="true"
         android:focusable="true"
         android:orientation="horizontal"
@@ -57,7 +65,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:onClick="buttonEvent"
-            app:srcCompat="@drawable/icon_palette" />
+            app:srcCompat="@drawable/icon_color" />
 
         <ImageView
             android:id="@+id/eraserButton"
@@ -81,7 +89,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:onClick="buttonEvent"
-            app:srcCompat="@drawable/icon_delete" />
+            app:srcCompat="@drawable/icon_clear" />
 
         <ImageView
             android:id="@+id/saveCanvasButton"
@@ -92,11 +100,32 @@
             android:padding="3dp"
             app:srcCompat="@drawable/icon_save" />
 
+        <ImageView
+            android:id="@+id/backToHomeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:onClick="buttonEvent"
+            android:padding="3dp"
+            app:srcCompat="@drawable/icon_home" />
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/addFrameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/maplestory_light"
+        android:text="@string/add_frame"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <ImageView
         android:id="@+id/addGifFrameButton"
-        android:layout_width="50dp"
+        android:layout_width="38dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:onClick="buttonEvent"
@@ -104,23 +133,24 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addFrameTextView"
-        app:srcCompat="@drawable/icon_add" />
+        app:srcCompat="@drawable/icon_add_frame" />
 
     <TextView
-        android:id="@+id/addFrameTextView"
+        android:id="@+id/currentFrameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/maplestory_light"
-        android:text="@string/frames"
+        android:text="@string/current_frames"
         android:textColor="@color/black"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/canvasView" />
+        app:layout_constraintTop_toBottomOf="@+id/addGifFrameButton" />
 
     <LinearLayout
         android:id="@+id/thicknessLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/menuLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,33 +170,25 @@
         <SeekBar
             android:id="@+id/thicknessSeekBar"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:progress="15"
             android:progressDrawable="@drawable/thickness_seekbar"
             android:splitTrack="false"
             android:thumb="@drawable/thickness_seekbar_thumb" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recentColorRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/menuLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/saveTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/maplestory_light"
         android:background="@color/white"
+        android:fontFamily="@font/maplestory_light"
         android:text="@string/saving_image"
         android:textColor="@color/black"
         android:textSize="8pt"
         app:layout_constraintBottom_toTopOf="@+id/canvasProgressBar"
-        app:layout_constraintEnd_toEndOf="@+id/canvasView"
-        app:layout_constraintStart_toStartOf="@+id/canvasView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/canvasProgressBar"

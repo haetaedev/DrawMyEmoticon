@@ -9,9 +9,9 @@
     <!-- 테두리 -->
     <stroke
         android:width="3dp"
-        android:color="@color/soft_pink" />
+        android:color="@color/soft_orange" />
     <!-- 크기 -->
     <size
-        android:width="20dp"
-        android:height="20dp"/>
+        android:width="14dp"
+        android:height="14dp"/>
 </shape>
